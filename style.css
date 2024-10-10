@@ -1,0 +1,67 @@
+*{
+    margin:0;
+    font-family: cursive;
+    font-weight: 900;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 5px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border:1px solid black;
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 48px;
+    margin-bottom: 2px;
+}
+.head{
+    margin-bottom: 10px;
+    text-align: center;
+}
+.life{
+    color :green;
+    font-size: 12px;
+}
+.word{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+.letter{
+    text-align: center;;
+    border:1px solid black;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 72px;
+    height: 100px;
+    width: 60px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
+.letter:last-child{
+    margin-right: 0;
+}
+#message{
+    color: red;
+}
+.top{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.alphabet{
+    display: flex;
+}
+.alp{
+    padding: 1px;
+}
