@@ -64,7 +64,7 @@ class Word{
             setTimeout(()=>{
                 this.getWord();
                 score.textContent=this.score;
-            },1000);
+            },3000);
         }
         if(x){
             this.score++;
