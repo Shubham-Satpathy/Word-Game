@@ -3,6 +3,7 @@ const counterEl=document.getElementById("counter");
 const message=document.getElementById("message");
 const highest=document.getElementById("highest");
 const score=document.getElementById("score")
+const alphabet=document.querySelectorAll('.alp');
 const high=parseInt(localStorage.getItem("high"))||0;
 if(!high){
     localStorage.setItem("high",0);
@@ -11,7 +12,6 @@ highest.textContent=high;
 class Word{
     score=0;
     getWord(){
-        this.alphabet=document.querySelectorAll('.alp');
         this.guess=Medium[Math.floor(Math.random()*Medium.length)];
         this.life=5;
         this.value=[];
@@ -48,11 +48,11 @@ class Word{
                 break;
             }
         }
-        if(this.alphabet[key.charCodeAt(0)-65].style.color!="red" && flag){
+        if(alphabet[key.charCodeAt(0)-65].style.color!="red" && flag){
             counterEl.textContent=this.decreaseLife();
-            this.alphabet[key.charCodeAt(0)-65].style.color="red";
+            alphabet[key.charCodeAt(0)-65].style.color="red";
         }else if(!flag){
-            this.alphabet[key.charCodeAt(0)-65].style.color="green";
+            alphabet[key.charCodeAt(0)-65].style.color="green";
         }
         if(this.life==0){
             for(let i=0;i<this.value.length;i++){
@@ -88,7 +88,7 @@ class Word{
             child=word.lastChild;
         }
         counterEl.textContent=this.life;
-        this.alphabet.forEach(element => {
+        alphabet.forEach(element => {
             element.style.color="";
         });
     }
@@ -102,6 +102,12 @@ const wordGuessing=()=>{
         if(key.match(/[a-z]/i)){
             w.typingLetter(key.toUpperCase());
         }
+    });
+    alphabet.forEach((element)=>{
+        element.addEventListener("click",(e)=>{
+            const key= e.target.innerText;
+            w.typingLetter(key);
+        });
     });
 };
 
