@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess the Word</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onclick="hardStart(); this.onclick=null;">
+    <div class="top">
+    <div class="score">
+        <div class="life">Highest : <span id="highest"></span></div>
+        <div class="life">Score : <span id="score">0</span></div>
+    </div>
     <div class="alphabet">
         <div class="alp">A</div>
         <div class="alp">B</div>
@@ -35,23 +43,26 @@
         <div class="alp">Y</div>
         <div class="alp">Z</div>
     </div>
-   <div class="container">
-    <div class="top">
-        <div class="life">Highest : <span id="highest"></span></div>
-        <div class="life">Score : <span id="score">0</span></div>
-        <div class="life" id="heart">Life : <span id="counter"></span></div>
+    <div class="life" id="heart"></div>
     </div>
+    <div class="container">
+    
     <div class="head">
         Guess The Word
     </div>
     <div class="word" id="word">
-        <!-- <div class="letter">A</div> -->
+        <div id="boot">Click to Start</div>
     </div>
    </div>
-   <div id="message">** Error Message **</div>
-   <script src="medium.js"></script>
+   <center>
+    <div id="message"></div>
+    </center>
+    <audio src="./assets/music.mp3" loop id="startMusic"></audio>
+    <audio src="./assets/pop.wav" id="pop"></audio>
+    <audio src="./assets/game-over.wav" id="lost"></audio>
+    <audio src="./assets/game-won.mp3" id="won"></audio>
+    <script src="medium.js"></script>
    <script src="app.js"></script>
-   
 </body>
 </body>
 </html>

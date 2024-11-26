@@ -1,11 +1,13 @@
 const word=document.getElementById("word");
-const counterEl=document.getElementById("counter");
 const message=document.getElementById("message");
 const highest=document.getElementById("highest");
 const score=document.getElementById("score")
 const alphabet=document.querySelectorAll('.alp');
 const high=parseInt(localStorage.getItem("high"))||0;
 const heart=document.getElementById("heart");
+const pop=document.getElementById("pop");
+const won=document.getElementById("won");
+const lost=document.getElementById("lost");
 
 if(!high){
     localStorage.setItem("high",0);
@@ -25,7 +27,7 @@ class Word{
             const unit=document.createElement('DIV');
             const img=document.createElement('IMG');
             unit.setAttribute('class','heart-el');
-            img.setAttribute('src','assets/heart.png');
+            img.setAttribute('src','./assets/heart.png');
             unit.append(img);
             heart.append(unit);
         }
@@ -39,9 +41,10 @@ class Word{
         }
         this.letter=document.querySelectorAll('.letter');
         message.textContent=this.guess.hint;
-        message.style.color="violet";
+        message.style.color="white";
     }
     decreaseLife(){
+        pop.play();
         return --this.life;
     }
     typingLetter(key){
@@ -62,7 +65,7 @@ class Word{
             }
         }
         if(alphabet[key.charCodeAt(0)-65].style.color!="red" && flag){
-            counterEl.textContent=this.decreaseLife();
+            this.decreaseLife();
             this.heartEl[5-this.life-1].removeChild(this.heartEl[5-this.life-1].firstChild);
             alphabet[key.charCodeAt(0)-65].style.color="red";
         }else if(!flag){
@@ -76,9 +79,10 @@ class Word{
             this.score=0;
             message.textContent="You Lose";
             message.style.color="red";
-            alert(this.guess.word.toUpperCase());
+            // alert(this.guess.word.toUpperCase());
             console.log(this.guess.word);
             console.log(this.guess.hint);
+            lost.play();
             setTimeout(()=>{
                 this.getWord();
                 score.textContent=this.score;
@@ -92,6 +96,7 @@ class Word{
             const high=parseInt(localStorage.getItem("high"));
             console.log(this.guess.word);
             console.log(this.guess.hint);
+            won.play();
             setTimeout(()=>{
                 if(high<this.score){
                     localStorage.setItem("high",this.score);
@@ -99,10 +104,11 @@ class Word{
                 }                
                 this.getWord();
                 score.textContent=this.score;
-            },1000);
+            },5000);
         }
     }
     reStart(){
+        
         let child=word.lastChild;
         while(child){
             word.removeChild(child);
@@ -113,7 +119,6 @@ class Word{
             heart.removeChild(child);
             child=heart.lastChild;
         }
-        counterEl.textContent=this.life;
         alphabet.forEach(element => {
             element.style.color="";
             element.style.textDecoration="";
@@ -137,5 +142,20 @@ const wordGuessing=()=>{
         });
     });
 };
+const boot=document.getElementById("boot");
+let promise = document.querySelector('#startMusic');
 
-wordGuessing();
+const hardStart=()=>{
+    boot.remove();
+    promise.play();
+    wordGuessing();
+}
+
+for(let i = 0; i < 5; i++) {
+    const unit=document.createElement('DIV');
+    const img=document.createElement('IMG');
+    unit.setAttribute('class','heart-el');
+    img.setAttribute('src','./assets/heart.png');
+    unit.append(img);
+    heart.append(unit);
+}
