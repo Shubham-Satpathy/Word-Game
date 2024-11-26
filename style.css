@@ -48,6 +48,18 @@ body{
     margin-right: 5px;
     margin-bottom: 2px;
 }
+.heart-el{
+    width: 20px;
+    height: 20px;
+}
+img{
+    width: 20px;
+    height: 20px;
+}
+#heart{
+    display: flex;
+    flex-direction: row;
+}
 .letter:last-child{
     margin-right: 0;
 }
@@ -61,7 +73,12 @@ body{
 }
 .alphabet{
     display: flex;
+    margin-bottom: 2px;
 }
 .alp{
     padding: 1px;
+    cursor: pointer;
+}
+.alp:hover{
+    color: darkgrey;
 }

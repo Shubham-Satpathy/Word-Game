@@ -5,10 +5,13 @@ const highest=document.getElementById("highest");
 const score=document.getElementById("score")
 const alphabet=document.querySelectorAll('.alp');
 const high=parseInt(localStorage.getItem("high"))||0;
+const heart=document.getElementById("heart");
+
 if(!high){
     localStorage.setItem("high",0);
 }
 highest.textContent=high;
+
 class Word{
     score=0;
     getWord(){
@@ -17,6 +20,16 @@ class Word{
         this.value=[];
         this.guessed=[];
         this.reStart();
+        this.won=true;
+        for(let i = 0; i < 5; i++) {
+            const unit=document.createElement('DIV');
+            const img=document.createElement('IMG');
+            unit.setAttribute('class','heart-el');
+            img.setAttribute('src','assets/heart.png');
+            unit.append(img);
+            heart.append(unit);
+        }
+        this.heartEl=document.querySelectorAll('.heart-el');
         for(let i = 0; i < this.guess.word.length; i++) {
             this.value.push(this.guess.word[i].toUpperCase());
             this.guessed.push(false);
@@ -50,27 +63,35 @@ class Word{
         }
         if(alphabet[key.charCodeAt(0)-65].style.color!="red" && flag){
             counterEl.textContent=this.decreaseLife();
+            this.heartEl[5-this.life-1].removeChild(this.heartEl[5-this.life-1].firstChild);
             alphabet[key.charCodeAt(0)-65].style.color="red";
         }else if(!flag){
             alphabet[key.charCodeAt(0)-65].style.color="green";
         }
-        if(this.life==0){
+        if(this.life==0 && this.won){
             for(let i=0;i<this.value.length;i++){
                 this.letter[i].textContent=this.value[i];
             }
+            this.won=false;
             this.score=0;
             message.textContent="You Lose";
             message.style.color="red";
+            alert(this.guess.word.toUpperCase());
+            console.log(this.guess.word);
+            console.log(this.guess.hint);
             setTimeout(()=>{
                 this.getWord();
                 score.textContent=this.score;
             },3000);
         }
-        if(x){
+        if(x && this.won){
             this.score++;
+            this.won=false;
             message.textContent="You Won";
             message.style.color="green";
             const high=parseInt(localStorage.getItem("high"));
+            console.log(this.guess.word);
+            console.log(this.guess.hint);
             setTimeout(()=>{
                 if(high<this.score){
                     localStorage.setItem("high",this.score);
@@ -87,9 +108,15 @@ class Word{
             word.removeChild(child);
             child=word.lastChild;
         }
+        child=heart.lastChild;
+        while(child){
+            heart.removeChild(child);
+            child=heart.lastChild;
+        }
         counterEl.textContent=this.life;
         alphabet.forEach(element => {
             element.style.color="";
+            element.style.textDecoration="";
         });
     }
 }
